@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mazes.Models {
+namespace Mazes.Models.Models {
   public class Cell {
     public int Row { get; }
     public int Col { get; }

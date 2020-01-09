@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using Mazes.MazeMakers;
-using Mazes.Models;
+using Mazes.Models.MazeMakers;
+using Mazes.Models.Models;
 
 namespace Mazes {
   class Program {

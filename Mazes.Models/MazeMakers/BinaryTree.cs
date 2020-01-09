@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mazes.Models;
+using Mazes.Models.Models;
 
-namespace Mazes.MazeMakers {
+namespace Mazes.Models.MazeMakers {
   public static class BinaryTree {
     public static Grid Create(int rows, int cols) {
       Grid grid = new Grid(rows, cols);

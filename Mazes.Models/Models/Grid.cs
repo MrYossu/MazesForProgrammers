@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mazes.Models {
+namespace Mazes.Models.Models {
   public class Grid {
     public int Rows { get; }
     public int Cols { get; }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mazes.Models;
+using Mazes.Models.Models;
 
-namespace Mazes.MazeMakers {
+namespace Mazes.Models.MazeMakers {
   public static class Sidewinder {
     public static Grid Create(int rows, int cols) {
       Grid grid = new Grid(rows, cols);

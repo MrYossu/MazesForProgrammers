@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mazes.Models {
+namespace Mazes.Models.Models {
   public static class Extensions {
     public static void ForEach<T>(this IEnumerable<T> items, Action<T> action) {
       if (items == null) {
