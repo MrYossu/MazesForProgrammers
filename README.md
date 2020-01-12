@@ -11,6 +11,6 @@ It didn't take me long to cross Ruby off the list of languages that I want to le
 
 Whilst this was a little frustrating, as it required me to understand the author's code a lot more deeply than I would have done otherwise, it had the big advantage of requiring me to understand the author's code a lot more deeply than I would have done otherwise! Copying code from a book doesn't make you study it properly. Trying to convert it to another language means you have to.
 
-This repository holds my code samples. No idea if anyone will ever find these useful, but who knows!
+This repository holds my code samples. No idea if anyone will ever find these useful, but who knows! Please feel free to download my code and play with it. I would be interested to hear if anyone has any comments.
 
-I intend to blog about my progress as a maze-master. Please see [my blog](https://www.pixata.co.uk/).
+I intend to blog about my progress as a maze-master. Please see [my blog](https://www.pixata.co.uk/tag/mazes/).
