@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Mazes.Models.MazeMakers;
@@ -7,7 +8,7 @@ using Mazes.Models.Models;
 
 namespace Mazes.UI {
   public partial class MainWindow {
-    private SolidColorBrush _brush = new SolidColorBrush(Colors.Black);
+    private readonly SolidColorBrush _brush = new SolidColorBrush(Colors.Black);
     private double _line = 1;
 
     public MainWindow() {
@@ -21,7 +22,10 @@ namespace Mazes.UI {
       int hCells = 10;
       int vCells = 10;
       Maze maze = Sidewinder.Create(vCells, hCells);
-      Debug.WriteLine(maze);
+      Distances d = maze[0, 0].Distances();
+      Debug.WriteLine($"Distances contains {d.Cells.Count()} cell(s)");
+      Debug.WriteLine(maze.ToString(c => d[c].ToString("000")));
+      //Debug.WriteLine(maze.ToString(c => $"{c.Row},{c.Col}"));
       double hCellSize = Canvas.Width / hCells;
       double vCellSize = Canvas.Height / vCells;
       // (0, 0) is top-left

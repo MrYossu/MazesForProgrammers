@@ -71,19 +71,25 @@ namespace Mazes.Models.Models {
 
     #endregion
 
-    public override string ToString() {
+    public string ToString(Func<Cell, string> format) {
       string output = "+" + string.Concat(Enumerable.Repeat("---+", Cols)) + _nl;
-      for (int row = 0; row < Rows; row++) {
+      for (int row = 0; row < Rows; row++)
+      {
         string cellRow = "|";
         string lowerWall = "+";
-        for (int col = 0; col < Cols; col++) {
+        for (int col = 0; col < Cols; col++)
+        {
           Cell cell = this[row, col];
-          cellRow += "   " + (cell?.Linked(cell.East) ?? false ? " " : "|");
+          cellRow += format(cell) + (cell?.Linked(cell.East) ?? false ? " " : "|");
           lowerWall += (cell?.Linked(cell.South) ?? false ? "   " : "---") + "+";
         }
         output += cellRow + _nl + lowerWall + _nl;
       }
       return output;
+
     }
+
+    public override string ToString() =>
+      ToString(c=> "   ");
   }
 }

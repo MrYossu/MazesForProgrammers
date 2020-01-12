@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Mazes.Models.Models {
   public class Cell {
@@ -38,6 +40,23 @@ namespace Mazes.Models.Models {
     public bool Linked(Cell cell) =>
       Links.Contains(cell);
 
-    // TODO AYS - Neighbours
+    public IEnumerable<Cell> Neighbours =>
+      new List<Cell> { North, South, East, West }.Where(c => c != null);
+
+    public Distances Distances() {
+      Distances distances = new Distances(this);
+      List<Cell> frontier = new List<Cell> { this };
+      while (frontier.Any()) {
+        List<Cell> newFrontier = new List<Cell>();
+        //Debug.WriteLine($"frontier contains {frontier.Count} cell(s)");
+        frontier.ForEach(c => c.Links.Where(cl => !distances.Cells.Contains(cl)).ForEach(link => {
+          distances.Add(link, distances[c] + 1);
+          newFrontier.Add(link);
+        }));
+        frontier = newFrontier;
+        //Debug.WriteLine($"  newFrontier contains {newFrontier.Count} cell(s)");
+      }
+      return distances;
+    }
   }
 }
