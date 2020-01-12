@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mazes.Models\Mazes.Models.csproj">
+      <Project>{26f457fa-e4a5-4e62-9b5f-df9b985c4ce2}</Project>
+      <Name>Mazes.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,11 +4,11 @@ using Mazes.Models.Models;
 
 namespace Mazes.Models.MazeMakers {
   public static class Sidewinder {
-    public static Grid Create(int rows, int cols) {
-      Grid grid = new Grid(rows, cols);
+    public static Maze Create(int rows, int cols) {
+      Maze maze = new Maze(rows, cols);
       Random r = new Random((int)DateTime.Now.Ticks);
       List<Cell> run = new List<Cell>();
-      grid.Cells.ForEach(c => {
+      maze.Cells.ForEach(c => {
         if (c.West == null) {
           run = new List<Cell>();
         }
@@ -27,7 +27,7 @@ namespace Mazes.Models.MazeMakers {
           c.Link(c.East);
         }
       });
-      return grid;
+      return maze;
     }
   }
 }

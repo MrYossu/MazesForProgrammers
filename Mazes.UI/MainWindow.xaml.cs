@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Mazes.Models.MazeMakers;
+using Mazes.Models.Models;
 
 namespace Mazes.UI {
   public partial class MainWindow {
@@ -10,31 +12,35 @@ namespace Mazes.UI {
 
     public MainWindow() {
       InitializeComponent();
-      //Debug.WriteLine($"({Canvas.Width}, {Canvas.Height})");
       DrawGrid();
     }
 
     private void DrawGrid() {
       Width = Canvas.Width + 2 * Canvas.Margin.Left;
       Height = Canvas.Height + 2 * Canvas.Margin.Top;
-      Debug.WriteLine($"Width: {Width}, Height: {Height}");
-      int nCells = 25;
-      double hCellSize = Canvas.Width / nCells;
-      double vCellSize = Canvas.Height / nCells;
-      Debug.WriteLine($"Canvas.Width: {Canvas.Width}, Height: {Canvas.Height}");
-      Debug.WriteLine($"hCellSize: {hCellSize}, vCellSize: {vCellSize}");
+      int hCells = 10;
+      int vCells = 10;
+      Maze maze = Sidewinder.Create(vCells, hCells);
+      Debug.WriteLine(maze);
+      double hCellSize = Canvas.Width / hCells;
+      double vCellSize = Canvas.Height / vCells;
       // (0, 0) is top-left
-      for (int row = 0; row < nCells; row++) {
+      for (int row = 0; row < vCells; row++) {
+        // (hOffset, vOffset) is the top-left of the current cell
         double vOffset = row * vCellSize;
-        //Debug.WriteLine($"row: {row}, vOffset: {vOffset}");
-        for (int col = 0; col < nCells; col++) {
+        for (int col = 0; col < hCells; col++) {
           double hOffset = col * hCellSize;
-          DrawLine(hOffset, vOffset, hOffset + hCellSize, vOffset);
-          DrawLine(hOffset, vOffset, hOffset, vOffset + vCellSize);
+          Cell thisCell = maze[row, col];
+          if (!thisCell.Linked(thisCell.South)) {
+            DrawLine(hOffset, vOffset + vCellSize, hOffset + hCellSize, vOffset + vCellSize);
+          }
+          if (!thisCell.Linked(thisCell.East)) {
+            DrawLine(hOffset + hCellSize, vOffset, hOffset + hCellSize, vOffset + vCellSize);
+          }
         }
       }
-      DrawLine(0, Canvas.Height, Canvas.Width, Canvas.Height);
-      DrawLine(Canvas.Width, 0, Canvas.Width, Canvas.Height);
+      DrawLine(0, 0, Canvas.Width, 0);
+      DrawLine(0, 0, 0, Canvas.Height);
     }
 
     private void DrawLine(double x1, double y1, double x2, double y2) {

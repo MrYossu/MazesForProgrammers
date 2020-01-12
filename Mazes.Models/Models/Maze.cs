@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Mazes.Models.Models {
-  public class Grid {
+  public class Maze {
     public int Rows { get; }
     public int Cols { get; }
     private Cell[,] _cells;
     private readonly Random _r = new Random((int)DateTime.Now.Ticks);
     private readonly string _nl = Environment.NewLine;
 
-    public Grid(int rows, int cols) {
+    public Maze(int rows, int cols) {
       Rows = rows;
       Cols = cols;
       _cells = BuildCells();
@@ -38,7 +38,6 @@ namespace Mazes.Models.Models {
         }
       }
     }
-
 
     public Cell RandomCell() =>
       this[_r.Next(Rows), _r.Next(Cols)];
@@ -75,14 +74,14 @@ namespace Mazes.Models.Models {
     public override string ToString() {
       string output = "+" + string.Concat(Enumerable.Repeat("---+", Cols)) + _nl;
       for (int row = 0; row < Rows; row++) {
-        string top = "|"; // The cell row itself
-        string bottom = "+"; // The divider between this row and the next
+        string cellRow = "|";
+        string lowerWall = "+";
         for (int col = 0; col < Cols; col++) {
           Cell cell = this[row, col];
-          top += "   " + (cell?.Linked(cell.East) ?? false ? " " : "|");
-          bottom += (cell?.Linked(cell.South) ?? false ? "   " : "---") + "+";
+          cellRow += "   " + (cell?.Linked(cell.East) ?? false ? " " : "|");
+          lowerWall += (cell?.Linked(cell.South) ?? false ? "   " : "---") + "+";
         }
-        output += top + _nl + bottom + _nl;
+        output += cellRow + _nl + lowerWall + _nl;
       }
       return output;
     }

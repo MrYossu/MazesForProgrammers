@@ -5,10 +5,10 @@ using Mazes.Models.Models;
 
 namespace Mazes.Models.MazeMakers {
   public static class BinaryTree {
-    public static Grid Create(int rows, int cols) {
-      Grid grid = new Grid(rows, cols);
+    public static Maze Create(int rows, int cols) {
+      Maze maze = new Maze(rows, cols);
       Random r = new Random((int)DateTime.Now.Ticks);
-      grid.Cells.ForEach(c => {
+      maze.Cells.ForEach(c => {
         List<Cell> neighbours = new List<Cell> { c.North, c.East }.Where(c1 => c1 != null).ToList();
         if (neighbours.Count == 1) {
           c.Link(neighbours.Single());
@@ -17,7 +17,7 @@ namespace Mazes.Models.MazeMakers {
           c.Link(neighbours.Skip(r.Next(100) > 50 ? 0 : 1).First());
         }
       });
-      return grid;
+      return maze;
     }
   }
 }

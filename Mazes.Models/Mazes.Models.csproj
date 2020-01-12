@@ -45,7 +45,7 @@
     <Compile Include="MazeMakers\Sidewinder.cs" />
     <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\Extensions.cs" />
-    <Compile Include="Models\Grid.cs" />
+    <Compile Include="Models\Maze.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
