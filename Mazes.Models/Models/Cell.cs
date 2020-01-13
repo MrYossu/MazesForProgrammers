@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Mazes.Models.Models {
@@ -64,7 +63,7 @@ namespace Mazes.Models.Models {
       while (frontier.Any()) {
         List<Cell> newFrontier = new List<Cell>();
         //Debug.WriteLine($"frontier contains {frontier.Count} cell(s)");
-        frontier.ForEach(c => c.Links.Where(cl => !distances.Cells.Contains(cl)).ForEach(link => {
+        frontier.ForEach(c => c.Links.Where(cl => !distances.Cells.Select(dc => dc.Cell).Contains(cl)).ForEach(link => {
           distances.Add(link, distances[c] + 1);
           newFrontier.Add(link);
         }));

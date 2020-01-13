@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Mazes.Models.Models {
   public class Distances {
@@ -12,8 +13,8 @@ namespace Mazes.Models.Models {
       };
     }
 
-    public IEnumerable<Cell> Cells =>
-      _distances.Keys;
+    public IEnumerable<CellDistance> Cells =>
+      _distances.Keys.Select(k => new CellDistance(k, _distances[k]));
 
     public void Add(Cell c, int d) =>
       _distances.Add(c, d);

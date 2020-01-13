@@ -7,7 +7,7 @@
         Title="Mazes For Programmers"
         SizeToContent="WidthAndHeight">
   <Grid>
-    <InkCanvas Name="Canvas"
+    <InkCanvas Name="MazeCanvas"
                Height="800"
                Width="800"
                Margin="5"

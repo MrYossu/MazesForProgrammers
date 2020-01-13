@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Mazes.Models.MazeMakers;
@@ -17,17 +19,18 @@ namespace Mazes.UI {
     }
 
     private void DrawMaze() {
-      Width = Canvas.Width + 2 * Canvas.Margin.Left;
-      Height = Canvas.Height + 2 * Canvas.Margin.Top;
+      Width = MazeCanvas.Width + 2 * MazeCanvas.Margin.Left;
+      Height = MazeCanvas.Height + 2 * MazeCanvas.Margin.Top;
       int hCells = 25;
       int vCells = 25;
       Maze maze = Sidewinder.Create(vCells, hCells);
       Distances d = maze[0, 0].Distances();
+      int maxDist = d.Cells.Max(cd => cd.Distance);
       Debug.WriteLine($"Distances contains {d.Cells.Count()} cell(s)");
       Debug.WriteLine(maze.ToString(c => d[c].ToString("000")));
       //Debug.WriteLine(maze.ToString(c => $"{c.Row},{c.Col}"));
-      double hCellSize = Canvas.Width / hCells;
-      double vCellSize = Canvas.Height / vCells;
+      double hCellSize = MazeCanvas.Width / hCells;
+      double vCellSize = MazeCanvas.Height / vCells;
       // (0, 0) is top-left
       for (int row = 0; row < vCells; row++) {
         // (hOffset, vOffset) is the top-left of the current cell
@@ -35,6 +38,7 @@ namespace Mazes.UI {
         for (int col = 0; col < hCells; col++) {
           double hOffset = col * hCellSize;
           Cell thisCell = maze[row, col];
+          ColourCell(maxDist, d, thisCell, hCellSize, vCellSize);
           if (!thisCell.Linked(thisCell.South)) {
             DrawLine(hOffset, vOffset + vCellSize, hOffset + hCellSize, vOffset + vCellSize);
           }
@@ -43,13 +47,36 @@ namespace Mazes.UI {
           }
         }
       }
-      DrawLine(0, 0, Canvas.Width, 0);
-      DrawLine(0, 0, 0, Canvas.Height);
+      DrawLine(0, 0, MazeCanvas.Width, 0);
+      DrawLine(0, 0, 0, MazeCanvas.Height);
+      DrawDistances(d, hCellSize, vCellSize);
     }
+
+    private void ColourCell(int maxDist, Distances d, Cell thisCell, double hCellSize, double vCellSize) {
+      float intensity = (float)(maxDist - d[thisCell]) / maxDist;
+      byte dark = (byte)(255 * intensity);
+      byte bright = (byte)(127 * intensity + 128);
+      Rectangle rect = new Rectangle {
+        Fill = new SolidColorBrush(Color.FromRgb(dark, bright, dark)),
+        Width = hCellSize,
+        Height = vCellSize,
+        Margin = new Thickness(thisCell.Col * hCellSize, thisCell.Row * vCellSize, hCellSize, vCellSize)
+      };
+      MazeCanvas.Children.Add(rect);
+    }
+
+    private void DrawDistances(Distances d, double hCellSize, double vCellSize) =>
+      d.Cells.ForEach(cellDistance => {
+        TextBlock tb = new TextBlock {
+          Text = cellDistance.Distance.ToString(),
+          Margin = new Thickness(cellDistance.Cell.Col * hCellSize + 10, cellDistance.Cell.Row * vCellSize + 10, 0, 0)
+        };
+        MazeCanvas.Children.Add(tb);
+      });
 
     private void DrawLine(double x1, double y1, double x2, double y2) {
       Line line = new Line { X1 = x1, Y1 = y1, X2 = x2, Y2 = y2, Stroke = _brush, StrokeThickness = _line };
-      Canvas.Children.Add(line);
+      MazeCanvas.Children.Add(line);
     }
 
     private void DrawEllipse() {
@@ -63,7 +90,7 @@ namespace Mazes.UI {
           StrokeThickness = 2
         };
 
-        Canvas.Children.Add(line);
+        MazeCanvas.Children.Add(line);
       }
     }
   }
