@@ -26,8 +26,8 @@ namespace Mazes.UI {
       Maze maze = Sidewinder.Create(vCells, hCells);
       Distances d = maze[0, 0].Distances();
       int maxDist = d.Cells.Max(cd => cd.Distance);
-      Debug.WriteLine($"Distances contains {d.Cells.Count()} cell(s)");
-      Debug.WriteLine(maze.ToString(c => d[c].ToString("000")));
+      Debug.WriteLine($"Maximum distance: {maxDist}");
+      //Debug.WriteLine(maze.ToString(c => d[c].ToString("000")));
       //Debug.WriteLine(maze.ToString(c => $"{c.Row},{c.Col}"));
       double hCellSize = MazeCanvas.Width / hCells;
       double vCellSize = MazeCanvas.Height / vCells;
