@@ -9,17 +9,15 @@ namespace Mazes.Models.MazeMakers {
       Random r = new Random((int)DateTime.Now.Ticks);
       List<Cell> run = new List<Cell>();
       maze.Cells.ForEach(c => {
-        if (c.West == null) {
+        if (c.WesternBoundary) {
           run = new List<Cell>();
         }
         run.Add(c);
-        bool atEast = c.East == null;
-        bool atNorth = c.North == null;
         // If the target is > 50 we favour horizontal runs, if < 50, we favour vertical runs
-        bool close = atEast || !atNorth && r.Next(100) > 50;
+        bool close = c.EasternBoundary || !c.NorthernBoundary && r.Next(100) > 50;
         if (close) {
           Cell cr = run.Rand();
-          if (cr.North != null) {
+          if (!cr.NorthernBoundary) {
             cr.Link(cr.North);
           }
           run.Clear();

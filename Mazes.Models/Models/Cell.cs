@@ -8,9 +8,24 @@ namespace Mazes.Models.Models {
     public int Col { get; }
     public List<Cell> Links { get; }
     public Cell North { get; set; }
+
+    public bool NorthernBoundary =>
+      North == null;
+
     public Cell South { get; set; }
+
+    public bool SouthernBoundary =>
+      South == null;
+
     public Cell East { get; set; }
+
+    public bool EasternBoundary =>
+      East == null;
+
     public Cell West { get; set; }
+
+    public bool WesternBoundary =>
+      West == null;
 
     public Cell(int row, int col) {
       Row = row;

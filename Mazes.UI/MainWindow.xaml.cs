@@ -13,14 +13,14 @@ namespace Mazes.UI {
 
     public MainWindow() {
       InitializeComponent();
-      DrawGrid();
+      DrawMaze();
     }
 
-    private void DrawGrid() {
+    private void DrawMaze() {
       Width = Canvas.Width + 2 * Canvas.Margin.Left;
       Height = Canvas.Height + 2 * Canvas.Margin.Top;
-      int hCells = 10;
-      int vCells = 10;
+      int hCells = 25;
+      int vCells = 25;
       Maze maze = Sidewinder.Create(vCells, hCells);
       Distances d = maze[0, 0].Distances();
       Debug.WriteLine($"Distances contains {d.Cells.Count()} cell(s)");
