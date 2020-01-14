@@ -3,9 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mazes.UI"
         mc:Ignorable="d"
         Title="Mazes For Programmers"
         SizeToContent="WidthAndHeight">
+
+  <Window.CommandBindings>
+    <CommandBinding Command="{x:Static local:MainWindow.PrintCommand}"
+                    Executed="PrintCommandExecute" />
+  </Window.CommandBindings>
+
   <Grid>
     <InkCanvas Name="MazeCanvas"
                Height="800"

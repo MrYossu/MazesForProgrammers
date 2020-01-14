@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Mazes.Models.MazeMakers;
@@ -12,9 +13,11 @@ namespace Mazes.UI {
   public partial class MainWindow {
     private readonly SolidColorBrush _brush = new SolidColorBrush(Colors.Black);
     private double _line = 1;
+    public static RoutedCommand PrintCommand = new RoutedCommand();
 
     public MainWindow() {
       InitializeComponent();
+      PrintCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Control));
       DrawMaze();
     }
 
@@ -49,7 +52,7 @@ namespace Mazes.UI {
       }
       DrawLine(0, 0, MazeCanvas.Width, 0);
       DrawLine(0, 0, 0, MazeCanvas.Height);
-      DrawDistances(d, hCellSize, vCellSize);
+      //DrawDistances(d, hCellSize, vCellSize);
     }
 
     private void ColourCell(int maxDist, Distances d, Cell thisCell, double hCellSize, double vCellSize) {
@@ -91,6 +94,16 @@ namespace Mazes.UI {
         };
 
         MazeCanvas.Children.Add(line);
+      }
+    }
+
+    private void PrintCommandExecute(object sender, ExecutedRoutedEventArgs e) {
+      PrintDialog prnt = new PrintDialog();
+      if (prnt.ShowDialog() == true) {
+        Size pageSize = new Size(prnt.PrintableAreaWidth, prnt.PrintableAreaHeight);
+        MazeCanvas.Measure(pageSize);
+        MazeCanvas.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+        prnt.PrintVisual(MazeCanvas, "Maze");
       }
     }
   }
