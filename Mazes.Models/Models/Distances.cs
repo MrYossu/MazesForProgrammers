@@ -4,7 +4,7 @@ using System.Linq;
 namespace Mazes.Models.Models {
   public class Distances {
     public Cell Root { get; }
-    private Dictionary<Cell, int> _distances;
+    private readonly Dictionary<Cell, int> _distances;
 
     public Distances(Cell root) {
       Root = root;
@@ -21,5 +21,8 @@ namespace Mazes.Models.Models {
 
     public int this[Cell c] =>
       _distances[c];
+
+    public CellDistance Max =>
+      Cells.Aggregate((i1, i2) => i1.Distance > i2.Distance ? i1 : i2);
   }
 }

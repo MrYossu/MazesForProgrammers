@@ -15,8 +15,6 @@
 
   <Grid>
     <InkCanvas Name="MazeCanvas"
-               Height="800"
-               Width="800"
                Margin="5"
                Background="LemonChiffon" />
   </Grid>

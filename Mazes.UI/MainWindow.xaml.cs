@@ -17,6 +17,8 @@ namespace Mazes.UI {
 
     public MainWindow() {
       InitializeComponent();
+      MazeCanvas.Width = 400;
+      MazeCanvas.Height = 400;
       PrintCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Control));
       DrawMaze();
     }
@@ -24,12 +26,12 @@ namespace Mazes.UI {
     private void DrawMaze() {
       Width = MazeCanvas.Width + 2 * MazeCanvas.Margin.Left;
       Height = MazeCanvas.Height + 2 * MazeCanvas.Margin.Top;
-      int hCells = 25;
-      int vCells = 25;
+      int hCells = 10;
+      int vCells = 10;
       Maze maze = Sidewinder.Create(vCells, hCells);
       Distances d = maze[0, 0].Distances();
-      int maxDist = d.Cells.Max(cd => cd.Distance);
-      Debug.WriteLine($"Maximum distance: {maxDist}");
+      CellDistance max = d.Max;
+      Debug.WriteLine($"Maximum distance: {max.Distance} in cell ({max.Cell.Row}, {max.Cell.Col})");
       //Debug.WriteLine(maze.ToString(c => d[c].ToString("000")));
       //Debug.WriteLine(maze.ToString(c => $"{c.Row},{c.Col}"));
       double hCellSize = MazeCanvas.Width / hCells;
@@ -41,7 +43,7 @@ namespace Mazes.UI {
         for (int col = 0; col < hCells; col++) {
           double hOffset = col * hCellSize;
           Cell thisCell = maze[row, col];
-          ColourCell(maxDist, d, thisCell, hCellSize, vCellSize);
+          ColourCell(d.Max.Distance, d, thisCell, hCellSize, vCellSize);
           if (!thisCell.Linked(thisCell.South)) {
             DrawLine(hOffset, vOffset + vCellSize, hOffset + hCellSize, vOffset + vCellSize);
           }
@@ -52,7 +54,7 @@ namespace Mazes.UI {
       }
       DrawLine(0, 0, MazeCanvas.Width, 0);
       DrawLine(0, 0, 0, MazeCanvas.Height);
-      //DrawDistances(d, hCellSize, vCellSize);
+      DrawDistances(d, hCellSize, vCellSize);
     }
 
     private void ColourCell(int maxDist, Distances d, Cell thisCell, double hCellSize, double vCellSize) {
