@@ -62,13 +62,11 @@ namespace Mazes.Models.Models {
       List<Cell> frontier = new List<Cell> { this };
       while (frontier.Any()) {
         List<Cell> newFrontier = new List<Cell>();
-        //Debug.WriteLine($"frontier contains {frontier.Count} cell(s)");
         frontier.ForEach(c => c.Links.Where(cl => !distances.Cells.Select(dc => dc.Cell).Contains(cl)).ForEach(link => {
           distances.Add(link, distances[c] + 1);
           newFrontier.Add(link);
         }));
         frontier = newFrontier;
-        //Debug.WriteLine($"  newFrontier contains {newFrontier.Count} cell(s)");
       }
       return distances;
     }
