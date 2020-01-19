@@ -11,11 +11,14 @@
   <Window.CommandBindings>
     <CommandBinding Command="{x:Static local:MainWindow.PrintCommand}"
                     Executed="PrintCommandExecute" />
+    <CommandBinding Command="{x:Static local:MainWindow.RefreshCommand}"
+                    Executed="RefreshCommandExecute" />
+    <CommandBinding Command="{x:Static local:MainWindow.CopyCommand}"
+                    Executed="CopyCommandExecute" />
   </Window.CommandBindings>
 
   <Grid>
     <InkCanvas Name="MazeCanvas"
-               Margin="5"
-               Background="LemonChiffon" />
+               Margin="10" />
   </Grid>
 </Window>

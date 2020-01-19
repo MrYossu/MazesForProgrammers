@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Mazes.Models.MazeMakers;
 using Mazes.Models.Models;
@@ -14,25 +16,33 @@ namespace Mazes.UI {
     private readonly SolidColorBrush _brush = new SolidColorBrush(Colors.Black);
     private double _line = 1;
     public static RoutedCommand PrintCommand = new RoutedCommand();
+    public static RoutedCommand RefreshCommand = new RoutedCommand();
+    public static RoutedCommand CopyCommand = new RoutedCommand();
 
     public MainWindow() {
       InitializeComponent();
-      MazeCanvas.Width = 400;
-      MazeCanvas.Height = 400;
+      MazeCanvas.Width = 800;
+      MazeCanvas.Height = 800;
       PrintCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Control));
+      RefreshCommand.InputGestures.Add(new KeyGesture(Key.F5));
+      CopyCommand.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
       DrawMaze();
     }
 
     private void DrawMaze() {
+      MazeCanvas.Children.Clear();
       Width = MazeCanvas.Width + 2 * MazeCanvas.Margin.Left;
       Height = MazeCanvas.Height + 2 * MazeCanvas.Margin.Top;
       int hCells = 10;
       int vCells = 10;
       Maze maze = Sidewinder.Create(vCells, hCells);
       Distances d = maze[0, 0].Distances();
-      CellDistance max = d.Max;
-      Debug.WriteLine($"Maximum distance: {max.Distance} in cell ({max.Cell.Row}, {max.Cell.Col})");
-      //Debug.WriteLine(maze.ToString(c => d[c].ToString("000")));
+      //CellDistance max = d.Max;
+      //Debug.WriteLine($"Maximum distance: {max.Distance} in cell ({max.Cell.Row}, {max.Cell.Col})");
+      Debug.WriteLine(maze.ToString(c => $"{c.Row}/{c.Col}"));
+      Debug.WriteLine("Path from...");
+      List<Cell> path = d.PathFrom(5, 5);
+      path.ForEach(c => Debug.WriteLine(c));
       //Debug.WriteLine(maze.ToString(c => $"{c.Row},{c.Col}"));
       double hCellSize = MazeCanvas.Width / hCells;
       double vCellSize = MazeCanvas.Height / vCells;
@@ -43,7 +53,7 @@ namespace Mazes.UI {
         for (int col = 0; col < hCells; col++) {
           double hOffset = col * hCellSize;
           Cell thisCell = maze[row, col];
-          ColourCell(d.Max.Distance, d, thisCell, hCellSize, vCellSize);
+          //ColourCell(d.Max.Distance, d, thisCell, hCellSize, vCellSize);
           if (!thisCell.Linked(thisCell.South)) {
             DrawLine(hOffset, vOffset + vCellSize, hOffset + hCellSize, vOffset + vCellSize);
           }
@@ -54,7 +64,7 @@ namespace Mazes.UI {
       }
       DrawLine(0, 0, MazeCanvas.Width, 0);
       DrawLine(0, 0, 0, MazeCanvas.Height);
-      DrawDistances(d, hCellSize, vCellSize);
+      //DrawDistances(d, hCellSize, vCellSize);
     }
 
     private void ColourCell(int maxDist, Distances d, Cell thisCell, double hCellSize, double vCellSize) {
@@ -107,6 +117,21 @@ namespace Mazes.UI {
         MazeCanvas.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
         prnt.PrintVisual(MazeCanvas, "Maze");
       }
+    }
+
+    private void RefreshCommandExecute(object sender, ExecutedRoutedEventArgs e) =>
+      DrawMaze();
+
+    private void CopyCommandExecute(object sender, ExecutedRoutedEventArgs e) {
+      Transform transform = MazeCanvas.LayoutTransform;
+      MazeCanvas.LayoutTransform = null;
+      Size size = new Size(MazeCanvas.Width, MazeCanvas.Height);
+      MazeCanvas.Measure(size);
+      MazeCanvas.Arrange(new Rect(size));
+      RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96d, 96d, PixelFormats.Pbgra32);
+      renderBitmap.Render(MazeCanvas);
+      MazeCanvas.LayoutTransform = transform;
+      Clipboard.SetImage(renderBitmap);
     }
   }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Mazes.Models.Models {
@@ -24,5 +25,20 @@ namespace Mazes.Models.Models {
 
     public CellDistance Max =>
       Cells.Aggregate((i1, i2) => i1.Distance > i2.Distance ? i1 : i2);
+
+    public List<Cell> PathFrom(int row, int col) {
+      CellDistance start = Cells.FirstOrDefault(c => c.Cell.Row == row && c.Cell.Col == col);
+      if (start == null) {
+        throw new ArgumentException($"No such cell at ({row}, {col})");
+      }
+      List<Cell> path = new List<Cell> { start.Cell };
+      CellDistance current = start;
+      while (current.Cell != Root) {
+        CellDistance next = Cells.First(c => current.Cell.Links.Contains(c.Cell) && c.Distance == current.Distance - 1);
+        current = next;
+        path.Add(current.Cell);
+      }
+      return path;
+    }
   }
 }
