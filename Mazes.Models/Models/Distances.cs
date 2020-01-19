@@ -23,8 +23,8 @@ namespace Mazes.Models.Models {
     public int this[Cell c] =>
       _distances[c];
 
-    public CellDistance Max =>
-      Cells.Aggregate((i1, i2) => i1.Distance > i2.Distance ? i1 : i2);
+    public CellDistance Max => 
+      new CellDistance(_distances.Keys.Last(), _distances[_distances.Keys.Last()]);
 
     public List<Cell> PathFrom(int row, int col) {
       CellDistance start = Cells.FirstOrDefault(c => c.Cell.Row == row && c.Cell.Col == col);

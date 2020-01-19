@@ -33,7 +33,7 @@ namespace Mazes.Models.Models {
     }
 
     public override string ToString() =>
-      $"Cell: ({Row}, {Col})";
+      $"({Row}, {Col})";
 
     public Cell Link(Cell cell, bool bidirectional = true) {
       Links.Add(cell);

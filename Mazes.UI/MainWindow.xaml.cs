@@ -14,7 +14,7 @@ using Mazes.Models.Models;
 namespace Mazes.UI {
   public partial class MainWindow {
     private readonly SolidColorBrush _wallsBrush = new SolidColorBrush(Colors.Black);
-    private readonly SolidColorBrush _pathBrush = new SolidColorBrush(Colors.Purple);
+    private readonly SolidColorBrush _pathBrush = new SolidColorBrush(Colors.Crimson);
     private double _line = 1;
     public static RoutedCommand PrintCommand = new RoutedCommand();
     public static RoutedCommand RefreshCommand = new RoutedCommand();
@@ -22,8 +22,8 @@ namespace Mazes.UI {
 
     public MainWindow() {
       InitializeComponent();
-      MazeCanvas.Width = 800;
-      MazeCanvas.Height = 800;
+      MazeCanvas.Width = 400;
+      MazeCanvas.Height = 400;
       PrintCommand.InputGestures.Add(new KeyGesture(Key.P, ModifierKeys.Control));
       RefreshCommand.InputGestures.Add(new KeyGesture(Key.F5));
       CopyCommand.InputGestures.Add(new KeyGesture(Key.C, ModifierKeys.Control));
@@ -38,10 +38,16 @@ namespace Mazes.UI {
       int vCells = 10;
       Maze maze = Sidewinder.Create(vCells, hCells);
       Distances d = maze[0, 0].Distances();
+      CellDistance largestDistance = d.Max;
+      //Debug.WriteLine($"Largest distance from (0, 0) is at ({largestDistance.Cell.Row}, {largestDistance.Cell.Col}), distance {largestDistance.Distance}");
+      d = maze[largestDistance.Cell.Row, largestDistance.Cell.Col].Distances();
+      //d.Cells.ForEach(c => Debug.WriteLine(c.Cell));
+      CellDistance maxFromPrevious = d.Max;
+      List<Cell> path = d.PathFrom(maxFromPrevious.Cell.Row,maxFromPrevious.Cell.Col);
       //CellDistance max = d.Max;
       //Debug.WriteLine($"Maximum distance: {max.Distance} in cell ({max.Cell.Row}, {max.Cell.Col})");
-      Debug.WriteLine(maze.ToString(c => $"{c.Row}/{c.Col}"));
       //Debug.WriteLine(maze.ToString(c => $"{c.Row},{c.Col}"));
+      Debug.WriteLine(maze.ToString(c => $" {d[c]} "));
       double hCellSize = MazeCanvas.Width / hCells;
       double vCellSize = MazeCanvas.Height / vCells;
       // (0, 0) is top-left
@@ -63,8 +69,8 @@ namespace Mazes.UI {
       DrawLine(0, 0, MazeCanvas.Width, 0);
       DrawLine(0, 0, 0, MazeCanvas.Height);
       //DrawDistances(d, hCellSize, vCellSize);
-      List<Cell> path = d.PathFrom(9, 9);
-      path.ForEach(c => Debug.WriteLine(c));
+      //List<Cell> path = d.PathFrom(9, 9);
+      //path.ForEach(c => Debug.WriteLine(c));
       //DrawLocations(maze, hCellSize, vCellSize);
       DrawPath(path, hCellSize, vCellSize);
     }
