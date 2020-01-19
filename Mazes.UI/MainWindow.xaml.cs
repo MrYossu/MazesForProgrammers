@@ -13,7 +13,8 @@ using Mazes.Models.Models;
 
 namespace Mazes.UI {
   public partial class MainWindow {
-    private readonly SolidColorBrush _brush = new SolidColorBrush(Colors.Black);
+    private readonly SolidColorBrush _wallsBrush = new SolidColorBrush(Colors.Black);
+    private readonly SolidColorBrush _pathBrush = new SolidColorBrush(Colors.Purple);
     private double _line = 1;
     public static RoutedCommand PrintCommand = new RoutedCommand();
     public static RoutedCommand RefreshCommand = new RoutedCommand();
@@ -40,9 +41,6 @@ namespace Mazes.UI {
       //CellDistance max = d.Max;
       //Debug.WriteLine($"Maximum distance: {max.Distance} in cell ({max.Cell.Row}, {max.Cell.Col})");
       Debug.WriteLine(maze.ToString(c => $"{c.Row}/{c.Col}"));
-      Debug.WriteLine("Path from...");
-      List<Cell> path = d.PathFrom(5, 5);
-      path.ForEach(c => Debug.WriteLine(c));
       //Debug.WriteLine(maze.ToString(c => $"{c.Row},{c.Col}"));
       double hCellSize = MazeCanvas.Width / hCells;
       double vCellSize = MazeCanvas.Height / vCells;
@@ -65,6 +63,10 @@ namespace Mazes.UI {
       DrawLine(0, 0, MazeCanvas.Width, 0);
       DrawLine(0, 0, 0, MazeCanvas.Height);
       //DrawDistances(d, hCellSize, vCellSize);
+      List<Cell> path = d.PathFrom(9, 9);
+      path.ForEach(c => Debug.WriteLine(c));
+      //DrawLocations(maze, hCellSize, vCellSize);
+      DrawPath(path, hCellSize, vCellSize);
     }
 
     private void ColourCell(int maxDist, Distances d, Cell thisCell, double hCellSize, double vCellSize) {
@@ -89,8 +91,30 @@ namespace Mazes.UI {
         MazeCanvas.Children.Add(tb);
       });
 
-    private void DrawLine(double x1, double y1, double x2, double y2) {
-      Line line = new Line { X1 = x1, Y1 = y1, X2 = x2, Y2 = y2, Stroke = _brush, StrokeThickness = _line };
+    private void DrawLocations(Maze d, double hCellSize, double vCellSize) =>
+      d.Cells.ForEach(c => {
+        TextBlock tb = new TextBlock {
+          Text = c.ToString(),
+          Margin = new Thickness(c.Col * hCellSize + 10, c.Row * vCellSize + 10, 0, 0)
+        };
+        MazeCanvas.Children.Add(tb);
+      });
+
+    private void DrawPath(List<Cell> path, double hCellSize, double vCellSize) {
+      Cell start = path.First();
+      double prevX = start.Col * vCellSize + vCellSize / 2;
+      double prevY = start.Row * hCellSize + hCellSize / 2;
+      path.Skip(1).ForEach(c => {
+        double thisX = c.Col * vCellSize + vCellSize / 2;
+        double thisY = c.Row * hCellSize + hCellSize / 2;
+        DrawLine(prevX, prevY, thisX, thisY, _pathBrush);
+        prevX = thisX;
+        prevY = thisY;
+      });
+    }
+
+    private void DrawLine(double x1, double y1, double x2, double y2, SolidColorBrush brush = null) {
+      Line line = new Line { X1 = x1, Y1 = y1, X2 = x2, Y2 = y2, Stroke = brush ?? _wallsBrush, StrokeThickness = _line };
       MazeCanvas.Children.Add(line);
     }
 
