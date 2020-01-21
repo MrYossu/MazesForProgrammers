@@ -45,6 +45,15 @@ namespace Mazes.Models.Models {
     public int Size =>
       Rows * Cols;
 
+    public List<Cell> LongestPath {
+      get {
+        CellDistance max = this[0, 0].Distances().Max;
+        Distances d = this[max.Cell.Row, max.Cell.Col].Distances();
+        List<Cell> path = d.PathFrom(d.Max.Cell.Row, d.Max.Cell.Col);
+        return path;
+      }
+    }
+
     #region Initialise
 
     private Cell[,] BuildCells() {
@@ -71,6 +80,8 @@ namespace Mazes.Models.Models {
 
     #endregion
 
+    #region ToString
+
     public string ToString(Func<Cell, string> format) {
       string output = "+" + string.Concat(Enumerable.Repeat("---+", Cols)) + _nl;
       for (int row = 0; row < Rows; row++) {
@@ -88,5 +99,7 @@ namespace Mazes.Models.Models {
 
     public override string ToString() =>
       ToString(c => "   ");
+
+    #endregion
   }
 }
