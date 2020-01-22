@@ -1,0 +1,23 @@
+﻿<Window x:Class="Mazes.UI.MazeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mazes.UI"
+        mc:Ignorable="d"
+        Title="MazeWindow"
+        SizeToContent="WidthAndHeight">
+  <Window.CommandBindings>
+    <CommandBinding Command="{x:Static local:MazeWindow.PrintCommand}"
+                    Executed="PrintCommandExecute" />
+    <CommandBinding Command="{x:Static local:MazeWindow.RefreshCommand}"
+                    Executed="RefreshCommandExecute" />
+    <CommandBinding Command="{x:Static local:MazeWindow.CopyCommand}"
+                    Executed="CopyCommandExecute" />
+  </Window.CommandBindings>
+
+  <Grid>
+    <InkCanvas Name="MazeCanvas"
+               Margin="10" />
+  </Grid>
+</Window>

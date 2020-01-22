@@ -6,19 +6,122 @@
         xmlns:local="clr-namespace:Mazes.UI"
         mc:Ignorable="d"
         Title="Mazes For Programmers"
-        SizeToContent="WidthAndHeight">
-
-  <Window.CommandBindings>
-    <CommandBinding Command="{x:Static local:MainWindow.PrintCommand}"
-                    Executed="PrintCommandExecute" />
-    <CommandBinding Command="{x:Static local:MainWindow.RefreshCommand}"
-                    Executed="RefreshCommandExecute" />
-    <CommandBinding Command="{x:Static local:MainWindow.CopyCommand}"
-                    Executed="CopyCommandExecute" />
-  </Window.CommandBindings>
+        Width="400"
+        SizeToContent="Height">
 
   <Grid>
-    <InkCanvas Name="MazeCanvas"
-               Margin="10" />
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <TextBlock Text="Canvas size"
+               Grid.Column="0"
+               Grid.Row="0"
+               Margin="3" />
+    <Grid Grid.Column="1"
+          Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="50" />
+      </Grid.ColumnDefinitions>
+      <TextBox Name="HorizontalPixelsTb"
+               Margin="3"
+               Text="800" />
+      <TextBlock Text="x"
+                 Grid.Column="1"
+                 Margin="3" />
+      <TextBox Name="VerticalPixelsTb"
+               Grid.Column="2"
+               Margin="3"
+               Text="800" />
+      <TextBlock Text="pixels"
+                 Grid.Column="3"
+                 Margin="3" />
+    </Grid>
+
+    <TextBlock Text="Maze size"
+               Grid.Column="0"
+               Grid.Row="1"
+               Margin="3" />
+    <Grid Grid.Column="1"
+          Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="50" />
+      </Grid.ColumnDefinitions>
+      <TextBox Name="RowsTb"
+               Margin="3"
+               Text="15" />
+      <TextBlock Text="x"
+                 Grid.Column="1"
+                 Margin="3" />
+      <TextBox Name="ColsTb"
+               Grid.Column="2"
+               Margin="3"
+               Text="15" />
+      <TextBlock Text="cells"
+                 Grid.Column="3"
+                 Margin="3" />
+    </Grid>
+
+    <TextBlock Text="Algorithm"
+               Grid.Column="0"
+               Grid.Row="2"
+               Margin="3" />
+    <ComboBox Name="AlgorithmCmb"
+              Grid.Column="1"
+              Grid.Row="2"
+              Margin="3">
+      <ComboBoxItem>Binary tree</ComboBoxItem>
+      <ComboBoxItem IsSelected="True">Sidewinder</ComboBoxItem>
+    </ComboBox>
+
+    <CheckBox Name="DrawWallsChk"
+              Content="Draw walls?"
+              IsChecked="True"
+              Grid.Column="1"
+              Grid.Row="3"
+              Margin="3" />
+    <CheckBox Name="DrawLocationsChk"
+              Content="Draw locations?"
+              Grid.Column="1"
+              Grid.Row="4"
+              Margin="3" />
+    <CheckBox Name="DrawLongestChk"
+              Content="Draw longest?"
+              Grid.Column="1"
+              Grid.Row="6"
+              Margin="3" />
+    <CheckBox Name="ColourCellsChk"
+              Content="Colour cells?"
+              Grid.Column="1"
+              Grid.Row="5"
+              Margin="3" />
+
+    <Button Content="Generate"
+            Grid.Column="1"
+            Grid.Row="7"
+            Margin="3,2,0,4"
+            Width="70"
+            HorizontalAlignment="Left"
+            Click="GenerateBtn_Click" />
   </Grid>
 </Window>
