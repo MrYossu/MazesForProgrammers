@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:Mazes.UI"
         mc:Ignorable="d"
         Title="Mazes For Programmers"
-        Width="400"
-        SizeToContent="Height">
+        SizeToContent="WidthAndHeight">
 
   <Grid>
     <Grid.RowDefinitions>
@@ -90,8 +89,8 @@
               Grid.Column="1"
               Grid.Row="2"
               Margin="3">
-      <ComboBoxItem>Binary tree</ComboBoxItem>
-      <ComboBoxItem IsSelected="True">Sidewinder</ComboBoxItem>
+      <!--<ComboBoxItem>Binary tree</ComboBoxItem>
+      <ComboBoxItem IsSelected="True">Sidewinder</ComboBoxItem>-->
     </ComboBox>
 
     <CheckBox Name="DrawWallsChk"
@@ -105,16 +104,72 @@
               Grid.Column="1"
               Grid.Row="4"
               Margin="3" />
-    <CheckBox Name="DrawLongestChk"
-              Content="Draw longest?"
-              Grid.Column="1"
-              Grid.Row="6"
-              Margin="3" />
-    <CheckBox Name="ColourCellsChk"
-              Content="Colour cells?"
-              Grid.Column="1"
+    <GroupBox Grid.Column="1"
               Grid.Row="5"
-              Margin="3" />
+              Header="Distances and paths">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <RadioButton Name="NoDistancesOrPathsRb"
+                     GroupName="PathGp"
+                     Grid.Column="0"
+                     Grid.Row="0"
+                     Margin="3"
+                     Content="No distances or paths"
+                     IsChecked="True"
+                     Checked="PathGb_Checked" />
+        <RadioButton Name="ColourDistancesFromRb"
+                     GroupName="PathGp"
+                     Grid.Column="0"
+                     Grid.Row="1"
+                     Margin="3"
+                     Content="Colour distances from" 
+                     Checked="PathGb_Checked"/>
+        <StackPanel Name="PathFromSp"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    IsEnabled="False">
+          <TextBox Name="PathFromX"
+                   Margin="3"
+                   Width="30"
+                   Text="0" />
+          <TextBlock Text=","
+                     Margin="3" />
+          <TextBox Name="PathFromY"
+                   Margin="3"
+                   Width="30"
+                   Text="0" />
+          <CheckBox Name="ShowDistancesChk"
+                    Content="Show distances?"
+                    VerticalAlignment="Center"
+                    Margin="3" />
+        </StackPanel>
+
+        <RadioButton Name="DrawLongestRb"
+                     GroupName="PathGp"
+                     Content="Draw longest path"
+                     Grid.Column="0"
+                     Grid.Row="2"
+                     Margin="3" 
+                     Checked="PathGb_Checked"/>
+      </Grid>
+    </GroupBox>
 
     <Button Content="Generate"
             Grid.Column="1"

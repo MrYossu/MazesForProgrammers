@@ -38,7 +38,10 @@ namespace Mazes.UI {
         (MazeAlgorithms.SideWinder, () => Sidewinder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols))
       };
       Maze maze = cases.Switch(dmp.MazeAlgorithm);
-      //Debug.WriteLine(maze);
+      Distances d = null;
+      if (dmp.ColourCells) {
+        d = maze[dmp.PathStartRow, dmp.PathStartCol].Distances();
+      }
       double hCellSize = MazeCanvas.Width / maze.Cols;
       double vCellSize = MazeCanvas.Height / maze.Rows;
       // (0, 0) is top-left
@@ -49,8 +52,9 @@ namespace Mazes.UI {
           double hOffset = col * hCellSize;
           Cell thisCell = maze[row, col];
           if (dmp.ColourCells) {
-            // TODO AYS - This is only relevant if we have a path, either from a specified start, or the longest
-            //ColourCell(d.Max.Distance, d, thisCell, hCellSize, vCellSize);
+            if (dmp.ColourCells) {
+              ColourCell(d.Max.Distance, d, thisCell, hCellSize, vCellSize);
+            }
           }
           if (dmp.DrawWalls) {
             if (!thisCell.Linked(thisCell.South)) {
@@ -61,10 +65,14 @@ namespace Mazes.UI {
             }
           }
         }
-        DrawLine(0, 0, MazeCanvas.Width, 0);
-        DrawLine(0, 0, 0, MazeCanvas.Height);
+        if (dmp.DrawWalls) {
+          DrawLine(0, 0, MazeCanvas.Width, 0);
+          DrawLine(0, 0, 0, MazeCanvas.Height);
+        }
       }
-      //DrawDistances(d, hCellSize, vCellSize);
+      if (dmp.DrawDistances) {
+        DrawDistances(d, hCellSize, vCellSize);
+      }
       if (dmp.DrawLocations) {
         DrawLocations(maze, hCellSize, vCellSize);
       }

@@ -5,7 +5,10 @@
     public MazeAlgorithms MazeAlgorithm { get; set; }
     public bool DrawWalls { get; set; } = true;
     public bool DrawLocations { get; set; }
-    public bool DrawLongest { get; set; }
+    public int PathStartRow { get; set; }
+    public int PathStartCol { get; set; }
     public bool ColourCells { get; set; }
+    public bool DrawDistances { get; set; }
+    public bool DrawLongest { get; set; }
   }
 }
