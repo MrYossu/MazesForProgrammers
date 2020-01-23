@@ -35,7 +35,8 @@ namespace Mazes.UI {
       SetUpCanvas(dmp.CanvasSize.HorizontalPixels, dmp.CanvasSize.VerticalPixels);
       List<(MazeAlgorithms, Func<Maze>)> cases = new List<(MazeAlgorithms, Func<Maze>)> {
         (MazeAlgorithms.BinaryTree, () => BinaryTree.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
-        (MazeAlgorithms.SideWinder, () => Sidewinder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols))
+        (MazeAlgorithms.SideWinder, () => Sidewinder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
+        (MazeAlgorithms.AldousBroder, () => AldousBroder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
       };
       Maze maze = cases.Switch(dmp.MazeAlgorithm);
       Distances d = null;
