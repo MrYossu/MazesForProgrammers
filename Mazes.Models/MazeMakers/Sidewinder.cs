@@ -15,7 +15,7 @@ namespace Mazes.Models.MazeMakers {
         run.Add(c);
         // If the target is > 50 we favour horizontal runs, if < 50, we favour vertical runs
         if (c.EasternBoundary || !c.NorthernBoundary && r.Next(100) > 50) {
-          Cell cr = run.Rand();
+          Cell cr = run.Rand(r);
           if (!cr.NorthernBoundary) {
             cr.Link(cr.North);
           }
