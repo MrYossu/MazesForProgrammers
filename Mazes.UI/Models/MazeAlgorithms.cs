@@ -2,6 +2,7 @@
   public enum MazeAlgorithms {
     BinaryTree,
     SideWinder,
-    AldousBroder
+    AldousBroder,
+    Wilson
   }
 }

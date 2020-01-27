@@ -8,7 +8,7 @@ namespace Mazes.Console {
       //DumpGrid(grid);
       //DumpRandomCells(grid);
       //grid.AllCells.ForEach(c => Debug.WriteLine(c));
-      Debug.WriteLine(AldousBroder.Create(5, 5));
+      Debug.WriteLine(Wilson.Create(15, 15));
     }
 
     private static void DumpRandomCells(Maze maze) {

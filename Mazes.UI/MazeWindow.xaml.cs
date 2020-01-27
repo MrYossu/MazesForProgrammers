@@ -37,6 +37,7 @@ namespace Mazes.UI {
         (MazeAlgorithms.BinaryTree, () => BinaryTree.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.SideWinder, () => Sidewinder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.AldousBroder, () => AldousBroder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
+        (MazeAlgorithms.Wilson, () => Wilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
       };
       Maze maze = cases.Switch(dmp.MazeAlgorithm);
       Distances d = null;

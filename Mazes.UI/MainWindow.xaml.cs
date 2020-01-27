@@ -12,7 +12,7 @@ namespace Mazes.UI {
     public MainWindow() {
       InitializeComponent();
       AlgorithmCmb.ItemsSource = Enum.GetValues(typeof(MazeAlgorithms)).Cast<MazeAlgorithms>();
-      AlgorithmCmb.SelectedValue = MazeAlgorithms.SideWinder;
+      AlgorithmCmb.SelectedValue = MazeAlgorithms.Wilson;
     }
 
     private void GenerateBtn_Click(object sender, RoutedEventArgs e) {
