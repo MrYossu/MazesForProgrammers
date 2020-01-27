@@ -20,7 +20,6 @@ namespace Mazes.Models.MazeMakers {
           walk.Add(next);
           // Carve cells along the current walk
           walk.Zip(walk.Skip(1), (thisCell, nextCell) => (thisCell, nextCell)).ForEach(c => c.thisCell.Link(c.nextCell));
-          walk.Last().Link(next);
           // If there are any unvisited cells, start a new walk from a random one
           if (maze.Cells.Any(c => !c.Links.Any())) {
             walk = new List<Cell> { maze.Cells.Where(c => !c.Links.Any()).Rand(r) };
