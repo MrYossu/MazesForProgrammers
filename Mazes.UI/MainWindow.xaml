@@ -68,14 +68,14 @@
       </Grid.ColumnDefinitions>
       <TextBox Name="RowsTb"
                Margin="3"
-               Text="15" />
+               Text="50" />
       <TextBlock Text="x"
                  Grid.Column="1"
                  Margin="3" />
       <TextBox Name="ColsTb"
                Grid.Column="2"
                Margin="3"
-               Text="15" />
+               Text="50" />
       <TextBlock Text="cells"
                  Grid.Column="3"
                  Margin="3" />
@@ -89,8 +89,6 @@
               Grid.Column="1"
               Grid.Row="2"
               Margin="3">
-      <!--<ComboBoxItem>Binary tree</ComboBoxItem>
-      <ComboBoxItem IsSelected="True">Sidewinder</ComboBoxItem>-->
     </ComboBox>
 
     <CheckBox Name="DrawWallsChk"

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using Mazes.Models.Models;
 using Mazes.UI.Models;
 
 namespace Mazes.UI {
@@ -12,7 +8,7 @@ namespace Mazes.UI {
     public MainWindow() {
       InitializeComponent();
       AlgorithmCmb.ItemsSource = Enum.GetValues(typeof(MazeAlgorithms)).Cast<MazeAlgorithms>();
-      AlgorithmCmb.SelectedValue = MazeAlgorithms.Wilson;
+      AlgorithmCmb.SelectedValue = MazeAlgorithms.AldousBroder;
     }
 
     private void GenerateBtn_Click(object sender, RoutedEventArgs e) {
