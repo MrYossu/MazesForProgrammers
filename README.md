@@ -13,4 +13,4 @@ Whilst this was a little frustrating, as it required me to understand the author
 
 This repository holds my code samples. No idea if anyone will ever find these useful, but who knows! Please feel free to download my code and play with it. I would be interested to hear if anyone has any comments.
 
-I intend to blog about my progress as a maze-master. Please see [my blog series on coding mazes](https://www.pixata.co.uk/tag/mazes/).
+I have been blogging about my progress as a maze-master (ha ha). Please see [my blog series on coding mazes](https://www.pixata.co.uk/tag/mazes/).
