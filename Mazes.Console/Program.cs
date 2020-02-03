@@ -12,29 +12,8 @@ namespace Mazes.Console {
       //DumpRandomCells(grid);
       //grid.AllCells.ForEach(c => Debug.WriteLine(c));
       //Debug.WriteLine(Wilson.Create(15, 15));
-      //TimeAbwMazeCreation();
-      //GenerationStatisticsAldousBroder();
-      //GenerationStatisticsWilson();
       //Debug.WriteLine(AldousBroderWilson.Create(10,10));
-    }
-
-    private static void GenerationStatisticsWilson() {
-      Maze maze = Wilson.Create(50, 50);
-    }
-
-    private static void GenerationStatisticsAldousBroder() {
-      int trials = 10;
-      int[] iterations = new int[10];
-      for (int iter = 0; iter < 10; iter++) {
-        Maze maze = AldousBroder.Create(50, 50);
-        for (int i = 0; i < trials; i++) {
-          //Debug.WriteLine($"{AldousBroder.Iterations[i]}");
-          iterations[i] += AldousBroder.Iterations[i];
-        }
-      }
-      for (int i = 0; i < trials; i++) {
-        Debug.WriteLine($"{(i + 1) * 10}, {iterations[i] / trials}");
-      }
+      //TimeAbwMazeCreation();
     }
 
     /*
@@ -60,20 +39,17 @@ namespace Mazes.Console {
         });
     }
 
-    //private static void TimeAbwMazeCreation() {
-    //  int cells = 50;
-    //  int nTests = 10;
-    //  long totalTime = 0;
-    //  for (int percentage = 0; percentage <= 100; percentage += 10) {
-    //    AldousBroderWilson.AbMaxPercentage = percentage;
-    //    Enumerable.Range(0, nTests).ForEach(n => {
-    //      Stopwatch sw = Stopwatch.StartNew();
-    //      AldousBroderWilson.Create(cells, cells);
-    //      totalTime += sw.ElapsedMilliseconds;
-    //    });
-    //    Debug.WriteLine($"{percentage}\t{totalTime / nTests}");
-    //  }
-    //}
+    private static void TimeAbwMazeCreation() {
+      int cells = 50;
+      int nTests = 10;
+      long totalTime = 0;
+      Enumerable.Range(0, nTests).ForEach(n => {
+        Stopwatch sw = Stopwatch.StartNew();
+        AldousBroderWilson.Create(cells, cells);
+        totalTime += sw.ElapsedMilliseconds;
+      });
+      Debug.WriteLine(totalTime / nTests);
+    }
 
     private static void DumpRandomCells(Maze maze) {
       for (int i = 0; i < 10; i++) {

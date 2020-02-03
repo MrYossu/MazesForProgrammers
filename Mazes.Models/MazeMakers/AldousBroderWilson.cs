@@ -13,7 +13,6 @@ namespace Mazes.Models.MazeMakers {
       int tenPercent = totalCells / 10;
       Maze maze = new Maze(rows, cols);
       Random r = new Random((int)DateTime.Now.Ticks);
-      int iterations = 0;
 
       // Start off with Aldous-Broder. Run this until we have carved a specified percentage of cells
       int unvisited = rows * cols - 1;
