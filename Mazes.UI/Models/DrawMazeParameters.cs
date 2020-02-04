@@ -10,5 +10,6 @@
     public bool ColourCells { get; set; }
     public bool DrawDistances { get; set; }
     public bool DrawLongest { get; set; }
+    public bool DrawStartStop { get; set; }
   }
 }

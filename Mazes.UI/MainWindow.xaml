@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Mazes.UI"
         mc:Ignorable="d"
         Title="Mazes For Programmers"
         SizeToContent="WidthAndHeight">
@@ -27,7 +26,7 @@
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
 
-    <TextBlock Text="Canvas size"
+    <TextBlock Text="Canvas size (h x w)"
                Grid.Column="0"
                Grid.Row="0"
                Margin="3" />
@@ -39,13 +38,14 @@
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="50" />
       </Grid.ColumnDefinitions>
-      <TextBox Name="HorizontalPixelsTb"
+      <TextBox Name="VerticalPixelsTb"
+               Grid.Column="0"
                Margin="3"
                Text="800" />
       <TextBlock Text="x"
                  Grid.Column="1"
                  Margin="3" />
-      <TextBox Name="VerticalPixelsTb"
+      <TextBox Name="HorizontalPixelsTb"
                Grid.Column="2"
                Margin="3"
                Text="800" />
@@ -54,7 +54,7 @@
                  Margin="3" />
     </Grid>
 
-    <TextBlock Text="Maze size"
+    <TextBlock Text="Maze size (r x c)"
                Grid.Column="0"
                Grid.Row="1"
                Margin="3" />
@@ -68,14 +68,14 @@
       </Grid.ColumnDefinitions>
       <TextBox Name="RowsTb"
                Margin="3"
-               Text="50" />
+               Text="40" />
       <TextBlock Text="x"
                  Grid.Column="1"
                  Margin="3" />
       <TextBox Name="ColsTb"
                Grid.Column="2"
                Margin="3"
-               Text="50" />
+               Text="40" />
       <TextBlock Text="cells"
                  Grid.Column="3"
                  Margin="3" />
@@ -88,8 +88,7 @@
     <ComboBox Name="AlgorithmCmb"
               Grid.Column="1"
               Grid.Row="2"
-              Margin="3">
-    </ComboBox>
+              Margin="3" />
 
     <CheckBox Name="DrawWallsChk"
               Content="Draw walls?"
@@ -136,8 +135,8 @@
                      Grid.Column="0"
                      Grid.Row="1"
                      Margin="3"
-                     Content="Colour distances from" 
-                     Checked="PathGb_Checked"/>
+                     Content="Colour distances from (r x c)"
+                     Checked="PathGb_Checked" />
         <StackPanel Name="PathFromSp"
                     Grid.Column="1"
                     Grid.Row="1"
@@ -164,8 +163,16 @@
                      Content="Draw longest path"
                      Grid.Column="0"
                      Grid.Row="2"
-                     Margin="3" 
-                     Checked="PathGb_Checked"/>
+                     Margin="3"
+                     Checked="PathGb_Checked" />
+
+        <RadioButton Name="DrawStartStopRb"
+                     GroupName="PathGp"
+                     Content="Draw start/stop icons"
+                     Grid.Column="0"
+                     Grid.Row="3"
+                     Margin="3"
+                     Checked="PathGb_Checked" />
       </Grid>
     </GroupBox>
 

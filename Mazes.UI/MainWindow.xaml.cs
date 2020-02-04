@@ -22,7 +22,8 @@ namespace Mazes.UI {
         DrawDistances = ShowDistancesChk.IsChecked ?? false,
         PathStartRow = Convert.ToInt32(PathFromX.Text),
         PathStartCol = Convert.ToInt32(PathFromY.Text),
-        DrawLongest = DrawLongestRb.IsChecked ?? false
+        DrawLongest = DrawLongestRb.IsChecked ?? false,
+        DrawStartStop = DrawStartStopRb.IsChecked ?? false
       };
       MazeWindow mw = new MazeWindow(dmp) {
         Owner = GetWindow(this)

@@ -37,7 +37,7 @@ namespace Mazes.UI {
         (MazeAlgorithms.SideWinder, () => Sidewinder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.AldousBroder, () => AldousBroder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.Wilson, () => Wilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
-        (MazeAlgorithms.AldousBroderWilson, () => AldousBroderWilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
+        (MazeAlgorithms.AldousBroderWilson, () => AldousBroderWilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols))
       };
       Maze maze = cases.Switch(dmp.MazeAlgorithm);
       Distances d = null;
@@ -80,6 +80,31 @@ namespace Mazes.UI {
       }
       if (dmp.DrawLongest) {
         DrawPath(maze.LongestPath, hCellSize, vCellSize);
+      }
+      if (dmp.DrawStartStop) {
+        // TODO AYS - Draw start and stop icons at the two ends of the longest path
+        double iconSize = Math.Min(hCellSize - 4, vCellSize - 4);
+        List<Cell> longestPath = maze.LongestPath;
+        Cell start = longestPath.First();
+        double hOffset = start.Col * hCellSize + (hCellSize - iconSize) / 2;
+        double vOffset = start.Row * vCellSize - (vCellSize - iconSize) / 2 + 4;
+        Image icon = new Image {
+          Width = iconSize,
+          Height = iconSize,
+          Margin = new Thickness(hOffset, vOffset, iconSize, iconSize),
+          Source = new BitmapImage(new Uri("pack://application:,,,/Mazes.UI;component/Images/startbw.png"))
+        };
+        MazeCanvas.Children.Add(icon);
+        Cell stop = longestPath.Last();
+        hOffset = stop.Col * hCellSize + (hCellSize - iconSize) / 2;
+        vOffset = stop.Row * vCellSize - (vCellSize - iconSize) / 2 + 4;
+        icon = new Image {
+          Width = iconSize,
+          Height = iconSize,
+          Margin = new Thickness(hOffset, vOffset, iconSize, iconSize),
+          Source = new BitmapImage(new Uri("pack://application:,,,/Mazes.UI;component/Images/stop.png"))
+        };
+        MazeCanvas.Children.Add(icon);
       }
     }
 
