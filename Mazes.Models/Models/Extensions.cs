@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Mazes.Models.Models {
   public static class Extensions {
@@ -24,5 +25,8 @@ namespace Mazes.Models.Models {
       }
       return defaultValue;
     }
+
+    public static string SplitCamelCase(this string str) =>
+      Regex.Replace(Regex.Replace(str, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"), @"(\p{Ll})(\P{Ll})", "$1 $2");
   }
 }

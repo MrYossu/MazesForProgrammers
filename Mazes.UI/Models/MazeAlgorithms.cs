@@ -3,6 +3,7 @@
     BinaryTree,
     SideWinder,
     AldousBroder,
+    AldousBroderNoLinks,
     Wilson,
     AldousBroderWilson
   }

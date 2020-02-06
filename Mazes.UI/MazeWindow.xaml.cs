@@ -36,6 +36,7 @@ namespace Mazes.UI {
         (MazeAlgorithms.BinaryTree, () => BinaryTree.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.SideWinder, () => Sidewinder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.AldousBroder, () => AldousBroder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
+        (MazeAlgorithms.AldousBroderNoLinks, () => AldousBroderNoLinks.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.Wilson, () => Wilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
         (MazeAlgorithms.AldousBroderWilson, () => AldousBroderWilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols))
       };
