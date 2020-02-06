@@ -181,15 +181,16 @@ namespace Mazes.UI {
       DrawMaze(_dmp);
 
     private void CopyCommandExecute(object sender, ExecutedRoutedEventArgs e) {
-      Transform transform = MazeCanvas.LayoutTransform;
-      MazeCanvas.LayoutTransform = null;
-      Size size = new Size(MazeCanvas.Width, MazeCanvas.Height);
-      MazeCanvas.Measure(size);
-      MazeCanvas.Arrange(new Rect(size));
-      RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96d, 96d, PixelFormats.Pbgra32);
-      renderBitmap.Render(MazeCanvas);
-      MazeCanvas.LayoutTransform = transform;
-      Clipboard.SetImage(renderBitmap);
+      double width = MazeCanvas.ActualWidth;
+      double height = MazeCanvas.ActualHeight;
+      RenderTargetBitmap bmpCopied = new RenderTargetBitmap((int)Math.Round(width), (int)Math.Round(height), 96, 96, PixelFormats.Default);
+      DrawingVisual dv = new DrawingVisual();
+      using (DrawingContext dc = dv.RenderOpen()) {
+        VisualBrush vb = new VisualBrush(MazeCanvas);
+        dc.DrawRectangle(vb, null, new Rect(new Point(), new Size(width, height)));
+      }
+      bmpCopied.Render(dv);
+      Clipboard.SetImage(bmpCopied);
     }
 
     #endregion
