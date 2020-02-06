@@ -11,12 +11,9 @@ namespace Mazes.Models.MazeMakers {
       int unvisited = rows * cols - 1;
       Cell current = maze.Cells.Rand(r);
       while (unvisited > 0) {
-        Cell next;
-        if (current.Neighbours.Any(c => c.Links.Count == 0)) {
-          next = current.Neighbours.Where(c => c.Links.Count == 0).Rand(r);
-        } else {
-          next = current.Neighbours.Rand(r);
-        }
+        Cell next = current.Neighbours.Any(c => r.Next(1000) < 750 && c.Links.Count == 0)
+          ? current.Neighbours.Where(c => c.Links.Count == 0).Rand(r)
+          : current.Neighbours.Rand(r);
         if (next.Links.Count == 0) {
           current.Link(next);
           unvisited--;

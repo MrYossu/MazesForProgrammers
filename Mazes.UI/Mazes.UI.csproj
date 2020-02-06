@@ -77,7 +77,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\MazeAlgorithms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

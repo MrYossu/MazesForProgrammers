@@ -32,15 +32,7 @@ namespace Mazes.UI {
 
     private void DrawMaze(DrawMazeParameters dmp) {
       SetUpCanvas(dmp.CanvasSize.HorizontalPixels, dmp.CanvasSize.VerticalPixels);
-      List<(MazeAlgorithms, Func<Maze>)> cases = new List<(MazeAlgorithms, Func<Maze>)> {
-        (MazeAlgorithms.BinaryTree, () => BinaryTree.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
-        (MazeAlgorithms.SideWinder, () => Sidewinder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
-        (MazeAlgorithms.AldousBroder, () => AldousBroder.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
-        (MazeAlgorithms.AldousBroderNoLinks, () => AldousBroderNoLinks.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
-        (MazeAlgorithms.Wilson, () => Wilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols)),
-        (MazeAlgorithms.AldousBroderWilson, () => AldousBroderWilson.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols))
-      };
-      Maze maze = cases.Switch(dmp.MazeAlgorithm);
+      Maze maze = dmp.MazeAlgorithm.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols);
       Distances d = null;
       if (dmp.ColourCells) {
         d = maze[dmp.PathStartRow, dmp.PathStartCol].Distances();

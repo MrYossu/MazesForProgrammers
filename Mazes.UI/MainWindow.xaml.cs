@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using Mazes.Models.MazeMakers;
 using Mazes.UI.Models;
 
 namespace Mazes.UI {
   public partial class MainWindow {
     public MainWindow() {
       InitializeComponent();
-      AlgorithmCmb.ItemsSource = Enum.GetValues(typeof(MazeAlgorithms)).Cast<MazeAlgorithms>();
-      AlgorithmCmb.SelectedValue = MazeAlgorithms.AldousBroder;
+      AlgorithmCmb.ItemsSource = MazeAlgorithm.Algorithms;
+      AlgorithmCmb.SelectedIndex = 3;
     }
 
     private void GenerateBtn_Click(object sender, RoutedEventArgs e) {
       DrawMazeParameters dmp = new DrawMazeParameters {
         CanvasSize = (Convert.ToInt32(HorizontalPixelsTb.Text), Convert.ToInt32(VerticalPixelsTb.Text)),
         MazeSize = (Convert.ToInt32(RowsTb.Text), Convert.ToInt32(ColsTb.Text)),
-        MazeAlgorithm = (MazeAlgorithms)AlgorithmCmb.SelectedValue,
+        MazeAlgorithm = (MazeAlgorithm)AlgorithmCmb.SelectedValue,
         DrawWalls = DrawWallsChk.IsChecked ?? false,
         DrawLocations = DrawLocationsChk.IsChecked ?? false,
         ColourCells = ColourDistancesFromRb.IsChecked ?? false,
