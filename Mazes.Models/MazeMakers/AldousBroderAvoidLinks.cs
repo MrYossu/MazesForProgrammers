@@ -3,8 +3,8 @@ using System.Linq;
 using Mazes.Models.Models;
 
 namespace Mazes.Models.MazeMakers {
-  public static class AldousBroderNoLinks {
-    // This is a modification of the standard Aldous-Broder algorithm that will not pick a visited neighbour if there is a non-visited one available
+  public static class AldousBroderAvoidLinks {
+    // This is a modification of the standard Aldous-Broder algorithm that will avoid visited neighbours (depending on the weighting hard-coded below) if there is a non-visited one available
     public static Maze Create(int rows, int cols) {
       Maze maze = new Maze(rows, cols);
       Random r = new Random((int)DateTime.Now.Ticks);

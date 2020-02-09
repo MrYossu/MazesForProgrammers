@@ -42,12 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MazeMakers\AldousBroder.cs" />
-    <Compile Include="MazeMakers\AldousBroderNoLinks.cs" />
+    <Compile Include="MazeMakers\AldousBroderAvoidLinks.cs" />
     <Compile Include="MazeMakers\AldousBroderWilson.cs" />
     <Compile Include="MazeMakers\BinaryTree.cs" />
     <Compile Include="MazeMakers\MazeAlgorithm.cs" />
     <Compile Include="MazeMakers\Sidewinder.cs" />
     <Compile Include="MazeMakers\Wilson.cs" />
+    <Compile Include="MazeMakers\WilsonJb.cs" />
     <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\CellDistance.cs" />
     <Compile Include="Models\Distances.cs" />

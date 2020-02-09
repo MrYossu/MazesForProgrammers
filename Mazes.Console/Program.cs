@@ -11,9 +11,23 @@ namespace Mazes.Console {
       //DumpGrid(grid);
       //DumpRandomCells(grid);
       //grid.AllCells.ForEach(c => Debug.WriteLine(c));
-      //Debug.WriteLine(Wilson.Create(15, 15));
+      //Debug.WriteLine(WilsonJb.Create(5, 5));
+      //TimeOneAlgorithm();
       //Debug.WriteLine(AldousBroderWilson.Create(10,10));
       //TimeAbwMazeCreation();
+    }
+
+    private static void TimeOneAlgorithm() {
+      long ms = 0;
+      Enumerable.Range(0, 10).ForEach(n => {
+        Stopwatch sw = Stopwatch.StartNew();
+        Maze maze = Wilson.Create(100, 100);
+        sw.Stop();
+        Debug.WriteLine(sw.ElapsedMilliseconds);
+        ms += sw.ElapsedMilliseconds;
+      });
+      Debug.WriteLine("---");
+      Debug.WriteLine(ms / 10);
     }
 
     /*

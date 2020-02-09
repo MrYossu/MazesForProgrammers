@@ -17,8 +17,9 @@ namespace Mazes.Models.MazeMakers {
         new MazeAlgorithm("Binary Tree", BinaryTree.Create),
         new MazeAlgorithm("Sidewinder", Sidewinder.Create),
         new MazeAlgorithm("Aldous-Broder", AldousBroder.Create),
-        new MazeAlgorithm("Aldous-Broder - No links", AldousBroderNoLinks.Create),
+        new MazeAlgorithm("Aldous-Broder - Avoid links", AldousBroderAvoidLinks.Create),
         new MazeAlgorithm("Wilson", Wilson.Create),
+        new MazeAlgorithm("Wilson JB", WilsonJb.Create),
         new MazeAlgorithm("Aldous-Broder/Wilson", AldousBroderWilson.Create)
       };
   }
