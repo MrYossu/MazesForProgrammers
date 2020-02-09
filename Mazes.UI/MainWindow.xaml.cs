@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using Mazes.Models.MazeMakers;
 using Mazes.UI.Models;
@@ -17,6 +16,8 @@ namespace Mazes.UI {
         CanvasSize = (Convert.ToInt32(HorizontalPixelsTb.Text), Convert.ToInt32(VerticalPixelsTb.Text)),
         MazeSize = (Convert.ToInt32(RowsTb.Text), Convert.ToInt32(ColsTb.Text)),
         MazeAlgorithm = (MazeAlgorithm)AlgorithmCmb.SelectedValue,
+        Braid = BraidChk.IsChecked ?? false,
+        BraidProbability = Convert.ToDouble(BraidProbabilityTb.Text),
         DrawWalls = DrawWallsChk.IsChecked ?? false,
         DrawLocations = DrawLocationsChk.IsChecked ?? false,
         ColourCells = ColourDistancesFromRb.IsChecked ?? false,
@@ -35,6 +36,12 @@ namespace Mazes.UI {
     private void PathGb_Checked(object sender, RoutedEventArgs e) {
       if (PathFromSp != null && ColourDistancesFromRb != null) {
         PathFromSp.IsEnabled = ColourDistancesFromRb.IsChecked ?? false;
+      }
+    }
+
+    private void BraidChk_Checked(object sender, RoutedEventArgs e) {
+      if (BraidProbabilityTb != null && BraidChk != null) {
+        BraidProbabilityTb.IsEnabled = BraidChk.IsChecked ?? false;
       }
     }
   }

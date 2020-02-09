@@ -7,7 +7,7 @@ namespace Mazes.Models.Models {
     public int Rows { get; }
     public int Cols { get; }
     private Cell[,] _cells;
-    private readonly Random _r = new Random((int)DateTime.Now.Ticks);
+    private readonly Random _r = new Random();
     private readonly string _nl = Environment.NewLine;
 
     public Maze(int rows, int cols) {
@@ -38,6 +38,19 @@ namespace Mazes.Models.Models {
         }
       }
     }
+
+    public IEnumerable<Cell> DeadEnds =>
+      Cells.Where(c => c.DeadEnd);
+
+    public void Braid(double p = 0.5) =>
+      DeadEnds.Shuffle(_r).ForEach(c => {
+        if (c.DeadEnd && _r.Next() < p) {
+          Cell neighbour = c.Neighbours.Any(n => n.DeadEnd)
+            ? c.Neighbours.Where(n => n.DeadEnd).Rand(_r)
+            : c.Neighbours.Where(n => !c.Linked(n)).Rand(_r);
+          c.Link(neighbour);
+        }
+      });
 
     public Cell RandomCell() =>
       this[_r.Next(Rows), _r.Next(Cols)];

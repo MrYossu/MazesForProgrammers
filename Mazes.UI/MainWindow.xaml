@@ -90,20 +90,36 @@
               Grid.Column="1"
               Grid.Row="2"
               Margin="3" />
+    <StackPanel Grid.Column="1"
+                Grid.Row="3"
+                Orientation="Horizontal">
+      <CheckBox Name="BraidChk"
+                Content="Braid?"
+                IsChecked="False"
+                Checked="BraidChk_Checked"
+                Unchecked="BraidChk_Checked"
+                Margin="3"
+                VerticalAlignment="Center" />
+      <TextBox Name="BraidProbabilityTb"
+               Margin="3"
+               Text="0.5"
+               Width="30"
+               VerticalAlignment="Center" />
+    </StackPanel>
 
     <CheckBox Name="DrawWallsChk"
               Content="Draw walls?"
               IsChecked="True"
               Grid.Column="1"
-              Grid.Row="3"
+              Grid.Row="5"
               Margin="3" />
     <CheckBox Name="DrawLocationsChk"
               Content="Draw locations?"
               Grid.Column="1"
-              Grid.Row="4"
+              Grid.Row="6"
               Margin="3" />
     <GroupBox Grid.Column="1"
-              Grid.Row="5"
+              Grid.Row="7"
               Header="Distances and paths">
       <Grid>
         <Grid.RowDefinitions>
@@ -179,7 +195,7 @@
 
     <Button Content="Generate"
             Grid.Column="1"
-            Grid.Row="7"
+            Grid.Row="8"
             Margin="3,2,0,4"
             Width="70"
             HorizontalAlignment="Left"

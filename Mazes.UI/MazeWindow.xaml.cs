@@ -7,7 +7,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Mazes.Models.MazeMakers;
 using Mazes.Models.Models;
 using Mazes.UI.Models;
 
@@ -33,6 +32,9 @@ namespace Mazes.UI {
     private void DrawMaze(DrawMazeParameters dmp) {
       SetUpCanvas(dmp.CanvasSize.HorizontalPixels, dmp.CanvasSize.VerticalPixels);
       Maze maze = dmp.MazeAlgorithm.Create(dmp.MazeSize.Rows, dmp.MazeSize.Cols);
+      if (dmp.Braid) {
+        maze.Braid(dmp.BraidProbability);
+      }
       Distances d = null;
       if (dmp.ColourCells) {
         d = maze[dmp.PathStartRow, dmp.PathStartCol].Distances();

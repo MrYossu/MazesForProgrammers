@@ -54,6 +54,9 @@ namespace Mazes.Models.Models {
     public bool Linked(Cell cell) =>
       Links.Contains(cell);
 
+    public bool DeadEnd =>
+      Links.Count == 1;
+
     public IEnumerable<Cell> Neighbours =>
       new List<Cell> { North, South, East, West }.Where(c => c != null);
 
