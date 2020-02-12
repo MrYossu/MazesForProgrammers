@@ -7,7 +7,7 @@ namespace Mazes.Models.MazeMakers {
     // This is a modification of the standard Aldous-Broder algorithm that will avoid visited neighbours (depending on the weighting hard-coded below) if there is a non-visited one available
     public static Maze Create(int rows, int cols) {
       Maze maze = new Maze(rows, cols);
-      Random r = new Random((int)DateTime.Now.Ticks);
+      Random r = maze.R;
       int unvisited = rows * cols - 1;
       Cell current = maze.Cells.Rand(r);
       while (unvisited > 0) {

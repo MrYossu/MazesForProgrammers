@@ -7,7 +7,7 @@ namespace Mazes.Models.MazeMakers {
   public static class Wilson {
     public static Maze Create(int rows, int cols) {
       Maze maze = new Maze(rows, cols);
-      Random r = new Random((int)DateTime.Now.Ticks);
+      Random r = maze.R;
       List<Cell> walk = new List<Cell>();
       // Pick a random cell to mark as visited. This will be the end point of our first walk
       Cell first = maze.Cells.Rand(r);

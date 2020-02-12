@@ -6,7 +6,7 @@ namespace Mazes.Models.MazeMakers {
   public static class Sidewinder {
     public static Maze Create(int rows, int cols) {
       Maze maze = new Maze(rows, cols);
-      Random r = new Random((int)DateTime.Now.Ticks);
+      Random r = maze.R;
       List<Cell> run = new List<Cell>();
       maze.Cells.ForEach(c => {
         if (c.WesternBoundary) {

@@ -9,7 +9,7 @@ namespace Mazes.Models.MazeMakers {
     // Whilst my implementation was more consistent in execution time, his was about 30% faster on average
     public static Maze Create(int rows, int cols) {
       Maze maze = new Maze(rows, cols);
-      Random r = new Random((int)DateTime.Now.Ticks);
+      Random r = maze.R;
       List<Cell> unvisited = maze.Cells.ToList();
       Cell first = unvisited.Rand(r);
       unvisited.Remove(first);

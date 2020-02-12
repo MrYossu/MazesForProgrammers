@@ -5,7 +5,7 @@ namespace Mazes.Models.MazeMakers {
   public static class AldousBroder {
     public static Maze Create(int rows, int cols) {
       Maze maze = new Maze(rows, cols);
-      Random r = new Random((int)DateTime.Now.Ticks);
+      Random r = maze.R;
       int unvisited = rows * cols - 1;
       Cell current = maze.Cells.Rand(r);
       while (unvisited > 0) {
